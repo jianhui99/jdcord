@@ -9,6 +9,11 @@ const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 })
 
+// Check username and room
+if(!username || !room){
+    window.location.href = "/";
+}
+
 const socket = io()
 
 // Join chatroom
@@ -61,7 +66,7 @@ function displayRoomName(room) {
 
 // Add users to DOM
 function displayUsers(users) {
-    userList.innerHTML = `${users.map(user => `<li>${user.username}</li>`).join('')}`
+    userList.innerHTML = `${users.map(user => `<li>${user.username} <spam id='online'></spam></li>`).join('')}`
 }
 
 // Add online user count to DOM

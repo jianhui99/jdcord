@@ -188,3 +188,11 @@ a {
 		display: none;
 	}
 }
+
+#online{
+	height: 15px;
+	width: 15px;
+	background-color: #00cb00;
+	border-radius: 50%;
+	display: inline-block;
+}
