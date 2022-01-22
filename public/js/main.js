@@ -1,6 +1,7 @@
 const chatForm = document.getElementById('chat-form')
 const roomName = document.getElementById('room-name')
 const userList = document.getElementById('users')
+const onlineCount = document.getElementById('online-count')
 const chatMessages = document.querySelector('.chat-messages')
 
 // Get username and room from URL
@@ -17,6 +18,7 @@ socket.emit('joinRoom', { username, room })
 socket.on('roomUsers', ({ room, users }) => {
     displayRoomName(room)
     displayUsers(users)
+    displayOnlineCount(users)
 })
 
 // Message from server
@@ -54,7 +56,7 @@ function displayMessage(message) {
 
 // Add room name to DOM
 function displayRoomName(room) {
-    roomName.innerText = room
+    roomName.innerText = '# ' + room
 }
 
 // Add users to DOM
@@ -62,3 +64,7 @@ function displayUsers(users) {
     userList.innerHTML = `${users.map(user => `<li>${user.username}</li>`).join('')}`
 }
 
+// Add online user count to DOM
+function displayOnlineCount(users) {
+    onlineCount.innerHTML = Object.keys(users).length
+}
