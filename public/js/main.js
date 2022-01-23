@@ -3,6 +3,7 @@ const roomName = document.getElementById('room-name')
 const userList = document.getElementById('users')
 const onlineCount = document.getElementById('online-count')
 const chatMessages = document.querySelector('.chat-messages')
+const rooms = ['Room A','Room B','Room C',]
 
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
@@ -11,7 +12,11 @@ const { username, room } = Qs.parse(location.search, {
 
 // Check username and room
 if(!username || !room){
-    window.location.href = "/";
+    window.location.href = "/"
+}
+
+if(!rooms.includes(room)){
+    window.location.href = "/"
 }
 
 const socket = io()
@@ -29,9 +34,13 @@ socket.on('roomUsers', ({ room, users }) => {
 // Message from server
 socket.on('message', message => {
     displayMessage(message)
-
     // Scroll down
     chatMessages.scrollTop = chatMessages.scrollHeight
+})
+
+// Alert from server
+socket.on('alert', message => {
+    alert(message)
 })
 
 // Message submit
@@ -42,6 +51,9 @@ chatForm.addEventListener('submit', e => {
 
     // Emit message to server
     socket.emit('chatMessage', msg)
+
+    // Emit message to server
+    socket.emit('notification')
 
     // Clear input
     e.target.elements.msg.value = ''

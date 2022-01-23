@@ -1,9 +1,5 @@
 const roomSelector = document.getElementById('room')
-const rooms = [
-    'Room A',
-    'Room B',
-    'Room C',
-]
+const rooms = ['Room A','Room B','Room C',]
 
 displayRooms()
 
